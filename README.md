@@ -1,14 +1,13 @@
 # Helm Chart - Release & Rollback
 
-### Passos:
-1. Criar um exemplo de Chart.
-2. Instalar o Chart criado.
-3. Atualizar para uma imagem diferente.
-4. Rollback da Release para a versao anterior.
-5. Desinstalar o Chart.
+**[Criar Chart](#criar-chart)**<br>
+**[Instalar Chart](#instalar-chart)**<br>
+**[Atualizar Imagem](#atualizar-imagem)**<br>
+**[Rollback da Release](#rollback-da-release)**<br>
+**[Desinstalar o Chart](#desinstalar-o-chart)**<br>
 
 ---
-### 1. Criar um Exemplo de Chart
+## Criar Chart
 ``` bash
 % helm create <chart_name>
 ```
@@ -116,7 +115,7 @@ spec:
 ```
 
 ---
-### 2. Instalar o Chart criado.
+## Instalar Chart
 ``` bash
 % helm install <release_name> <chart_name>
 ```
@@ -224,7 +223,7 @@ spec:
 ```
 
 ---
-### 3. Atualizar para uma imagem diferente.
+## Atualizar Imagem
 
 A maneira simples de fazer isso será alterar seus valores no arquivo values.yaml e usar o seguinte comando:
 ``` bash
@@ -243,7 +242,7 @@ TEST SUITE: None
 ```
 
 ---
-### 4. Rollback da Release para a versao anterior.
+## Rollback da Release
 
 Para fazer isso, primeiro precisamos verificar as revisões anteriores. O comando para isso é:
 
@@ -269,7 +268,7 @@ REVISION        UPDATED                         STATUS          CHART           
 ```
 
 ---
-### 5. Desinstalar o Chart.
+## Desinstalar o Chart
 
 ``` bash
 % helm uninstall <release_name>
