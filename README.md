@@ -1,6 +1,6 @@
 # Helm Chart - Release & Rollback
 
-Passos:
+### Passos:
 1. Criar um exemplo de Chart.
 2. Instalar o Chart criado.
 3. Atualizar para uma imagem diferente.
@@ -14,28 +14,28 @@ Passos:
 ```
 
 ``` bash
-% helm create my_application
-Creating my_application
+% helm create my-application
+Creating my-application
 ```
 
 Delete todos os arquivos contidos em templates:
 ``` bash
-% rm -Rvf my_application/templates/*
-my_application/templates/NOTES.txt
-my_application/templates/_helpers.tpl
-my_application/templates/deployment.yaml
-my_application/templates/hpa.yaml
-my_application/templates/ingress.yaml
-my_application/templates/service.yaml
-my_application/templates/serviceaccount.yaml
-my_application/templates/tests/test-connection.yaml
-my_application/templates/tests
+% rm -Rvf my-application/templates/*
+my-application/templates/NOTES.txt
+my-application/templates/_helpers.tpl
+my-application/templates/deployment.yaml
+my-application/templates/hpa.yaml
+my-application/templates/ingress.yaml
+my-application/templates/service.yaml
+my-application/templates/serviceaccount.yaml
+my-application/templates/tests/test-connection.yaml
+my-application/templates/tests
 ```
 
 Criar dois arquivos de deployment e service:
 ```bash
-% touch my_application/templates/deployment.yaml
-% touch my_application/templates/service.yaml  
+% touch my-application/templates/deployment.yaml
+% touch my-application/templates/service.yaml  
 ```
 
 OBSERVAÇÃO: *Chart.yaml* contém metadados sobre nossos Charts e *values.yaml* contém dados configuráveis para nossa definição de recurso do Kubernetes e os valores definidos nesses arquivos podem ser acessados em arquivos de definição de recurso. Podemos acessar os dados definidos nesses arquivos com a ajuda da seguinte sintaxe:
@@ -122,9 +122,9 @@ spec:
 ```
 
 ``` bash
-% helm install my-release my_application --description "My First Install"
+% helm install my_release my-application --description "My First Install"
 NAME: my-release
-LAST DEPLOYED: Thu May  5 22:56:49 2022
+LAST DEPLOYED: Thu May  5 23:12:31 2022
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
@@ -139,7 +139,7 @@ Você pode verificar os detalhes da versão com a ajuda com:
 ``` bash
 % helm history my-release  
 REVISION        UPDATED                         STATUS          CHART                   APP VERSION     DESCRIPTION     
-1               Thu May  5 22:56:49 2022        deployed        my_application-0.1.0    1.16.0          My First Install
+1               Thu May  5 23:12:31 2022        deployed        my-application-1.0.0    1.0.0           My First Install
 ```
 
 ##### Get all
@@ -149,7 +149,7 @@ REVISION        UPDATED                         STATUS          CHART           
 ``` bash
 % helm get all my-release
 NAME: my-release
-LAST DEPLOYED: Thu May  5 22:56:49 2022
+LAST DEPLOYED: Thu May  5 23:12:31 2022
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
@@ -171,7 +171,7 @@ data:
 image:
   pullPolicy: IfNotPresent
   repository: kodekloud/simple-webapp
-  tag: green
+  tag: blue
 replicaCount: 1
 service:
   NodePort: 30007
@@ -182,7 +182,7 @@ service:
 HOOKS:
 MANIFEST:
 ---
-# Source: my_application/templates/service.yaml
+# Source: my-application/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -196,7 +196,7 @@ spec:
   selector:
     app: nginx
 ---
-# Source: my_application/templates/deployment.yaml
+# Source: my-application/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -215,7 +215,7 @@ spec:
     spec:
       containers:
       - name: my-deployment
-        image: "kodekloud/simple-webapp:green"
+        image: "kodekloud/simple-webapp:blue"
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -232,10 +232,10 @@ A maneira simples de fazer isso será alterar seus valores no arquivo values.yam
 ```
 
 ``` bash
-% helm upgrade my-release my_application --description "Update Version."
+% helm upgrade my-release my-application --description "Update Version."
 Release "my-release" has been upgraded. Happy Helming!
 NAME: my-release
-LAST DEPLOYED: Thu May  5 23:02:46 2022
+LAST DEPLOYED: Thu May  5 23:13:58 2022
 NAMESPACE: default
 STATUS: deployed
 REVISION: 2
@@ -250,8 +250,8 @@ Para fazer isso, primeiro precisamos verificar as revisões anteriores. O comand
 ``` bash
 % helm history my-release                                               
 REVISION        UPDATED                         STATUS          CHART                   APP VERSION     DESCRIPTION     
-1               Thu May  5 22:56:49 2022        superseded      my_application-0.1.0    1.16.0          My First Install
-2               Thu May  5 23:02:46 2022        deployed        my_application-0.1.0    1.16.0          Update Version.
+1               Thu May  5 23:12:31 2022        superseded      my-application-1.0.0    1.0.0           My First Install
+2               Thu May  5 23:13:58 2022        deployed        my-application-1.0.0    2.0.0           Update Version.
 ```
 Podemos notar que temos números de “REVISÃO” para nossas instalações e atualizações. Podemos usá-lo para reverter para nossas especificações anteriores. Para isso, vamos executar o comando:
 ``` bash
@@ -263,10 +263,18 @@ Rollback was a success! Happy Helming!
 
 % helm history my-release                  
 REVISION        UPDATED                         STATUS          CHART                   APP VERSION     DESCRIPTION     
-1               Thu May  5 22:56:49 2022        superseded      my_application-0.1.0    1.16.0          My First Install
-2               Thu May  5 23:02:46 2022        superseded      my_application-0.1.0    1.16.0          Update Version. 
-3               Thu May  5 23:05:24 2022        deployed        my_application-0.1.0    1.16.0          Rollback to 1
+1               Thu May  5 23:12:31 2022        superseded      my-application-1.0.0    1.0.0           My First Install
+2               Thu May  5 23:13:58 2022        superseded      my-application-1.0.0    2.0.0           Update Version. 
+3               Thu May  5 23:14:38 2022        deployed        my-application-1.0.0    1.0.0           Rollback to 1 
 ```
 
 ---
 ### 5. Desinstalar o Chart.
+
+``` bash
+% helm uninstall <release_name>
+```
+``` bash
+% helm uninstall my-release
+release "my-release" uninstalled
+```

@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: kodekloud/simple-webapp
   pullPolicy: IfNotPresent
-  tag: "blue"
+  tag: "green"
 
 service:
   name: my-service
