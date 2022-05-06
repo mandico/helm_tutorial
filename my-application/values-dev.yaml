@@ -3,17 +3,17 @@ replicaCount: 1
 image:
   repository: kodekloud/simple-webapp
   pullPolicy: IfNotPresent
-  tag: "green"
+  tag: "blue"
 
 service:
-  name: my-service
+  name: my-service-dev
   type: NodePort
   port: 8080
   NodePort: 30007
 
 data:
-  namespace: default
-  name: my-deployment
+  name: my-deployment-dev
+  namespace: env-dev
   labels:
     app: nginx
   port:

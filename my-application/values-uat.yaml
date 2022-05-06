@@ -6,14 +6,14 @@ image:
   tag: "green"
 
 service:
-  name: my-service
+  name: my-service-uat
   type: NodePort
   port: 8080
-  NodePort: 30007
+  NodePort: 30008
 
 data:
-  namespace: default
-  name: my-deployment
+  name: my-deployment-uat
+  namespace: env-uat
   labels:
     app: nginx
   port:
