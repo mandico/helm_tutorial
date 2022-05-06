@@ -7,6 +7,7 @@
 **[Desinstalar o Chart](#desinstalar-o-chart)**<br>
 
 ---
+
 ## Criar Chart
 ``` bash
 % helm create <chart_name>
@@ -114,7 +115,6 @@ spec:
     app: {{ .Values.data.labels.app }}
 ```
 
----
 ## Instalar Chart
 ``` bash
 % helm install <release_name> <chart_name>
@@ -222,9 +222,7 @@ spec:
           protocol: TCP
 ```
 
----
 ## Atualizar Imagem
-
 A maneira simples de fazer isso será alterar seus valores no arquivo values.yaml e usar o seguinte comando:
 ``` bash
 % helm upgrade <release_name> <chart_name> —description “My custom message”
@@ -241,9 +239,7 @@ REVISION: 2
 TEST SUITE: None
 ```
 
----
 ## Rollback da Release
-
 Para fazer isso, primeiro precisamos verificar as revisões anteriores. O comando para isso é:
 
 ``` bash
@@ -267,9 +263,7 @@ REVISION        UPDATED                         STATUS          CHART           
 3               Thu May  5 23:14:38 2022        deployed        my-application-1.0.0    1.0.0           Rollback to 1 
 ```
 
----
 ## Desinstalar o Chart
-
 ``` bash
 % helm uninstall <release_name>
 ```
