@@ -1,5 +1,7 @@
 # Helm Chart - Release & Rollback
 
+![Helm](helm-on-kubernetes-cluster.png)
+
 **[Criar Chart](#criar-chart)**<br>
 **[Instalar Chart](#instalar-chart)**<br>
 **[Atualizar Imagem](#atualizar-imagem)**<br>
