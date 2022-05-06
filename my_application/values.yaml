@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: kodekloud/simple-webapp
+  pullPolicy: IfNotPresent
+  tag: "blue"
+
+service:
+  name: my-service
+  type: NodePort
+  port: 8080
+  NodePort: 30007
+
+data:
+  name: my-deployment
+  labels:
+    app: nginx
+  port:
+    number: 8080
+    name: http
+    protocol: TCP
+
+configmap:
+  name: my-config-map
